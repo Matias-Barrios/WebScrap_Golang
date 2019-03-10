@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"os/exec"
 	"strings"
-	"sync"
 
 	"golang.org/x/net/html"
 )
@@ -66,8 +65,8 @@ func renderNode(n *html.Node) string {
 	return buf.String()
 }
 
-func printName(jString string, wg *sync.WaitGroup) {
-	cmd := exec.Command(fmt.Sprintf("{ sleep 4; echo %s;}", jString))
+func printName(jString string) {
+	cmd := exec.Command(fmt.Sprintf("bash", "-c", "'ls -lh | grep more'"))
 	cmdReader, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
@@ -84,5 +83,5 @@ func printName(jString string, wg *sync.WaitGroup) {
 	if err := cmd.Wait(); err != nil {
 		log.Fatal(err)
 	}
-	wg.Done()
+
 }
