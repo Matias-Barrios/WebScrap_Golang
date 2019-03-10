@@ -18,13 +18,14 @@ import (
 
 func main() {
 	doc, _ := html.Parse(strings.NewReader(makeRequest("https://mednafen.github.io/")))
-	tag, err := getItem(doc, "title")
+	tag, err := getItem(doc, "div")
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	item := renderNode(tag)
-	fmt.Printf("Item : %s", item)
+	//item := renderNode(tag)
+
+	fmt.Println(tag.Attr[0].Key)
 }
 
 func makeRequest(URL string) string {
